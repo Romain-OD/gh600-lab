@@ -15,6 +15,12 @@ git checkout e1-start
 dotnet test        # one test fails on purpose — that failure is the exercise
 ```
 
+## The red X is intentional
+
+CI is failing on `main`, and it should be. One test fails on purpose — that failure is the
+real task hiding inside the vague one, and making it green is the point of Exercise 1. Do
+not "fix" it before you start; you would be deleting the exercise.
+
 ## What is in here
 
 `src/Payments` is a small payment service. It is deliberately untidy: an interface with a
