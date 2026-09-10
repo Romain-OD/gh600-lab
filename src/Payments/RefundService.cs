@@ -26,14 +26,15 @@ public sealed class RefundService
             return PaymentResult.Fail("refund currency does not match the payment");
         }
 
-        if (payment.RefundedTotal.Amount + amount.Amount > payment.Total.Amount)
+        var refundedTotal = payment.RefundedTotal + amount;
+        if (refundedTotal.Amount > payment.Total.Amount)
         {
             return PaymentResult.Fail("refund exceeds the payment amount");
         }
 
         _gateway.RefundAmount(payment.GatewayReference!, amount);
-        payment.RefundedTotal += amount;
-        payment.Status = payment.RefundedTotal.Amount == payment.Total.Amount
+        payment.RefundedTotal = refundedTotal;
+        payment.Status = refundedTotal.Amount == payment.Total.Amount
             ? PaymentStatus.Refunded
             : PaymentStatus.Captured;
         return PaymentResult.Ok(payment.Id);
