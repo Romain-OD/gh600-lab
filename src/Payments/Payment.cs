@@ -7,6 +7,7 @@ public sealed class Payment
     {
         Id = id;
         Total = total;
+        RefundedTotal = new Money(0m, total.Currency);
         CustomerRef = customerRef;
         Status = PaymentStatus.Pending;
     }
@@ -14,6 +15,8 @@ public sealed class Payment
     public string Id { get; }
 
     public Money Total { get; }
+
+    public Money RefundedTotal { get; internal set; }
 
     public string CustomerRef { get; }
 
