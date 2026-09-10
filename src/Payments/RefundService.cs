@@ -33,7 +33,9 @@ public sealed class RefundService
 
         _gateway.RefundAmount(payment.GatewayReference!, amount);
         payment.RefundedTotal += amount;
-        payment.Status = PaymentStatus.Refunded;
+        payment.Status = payment.RefundedTotal.Amount == payment.Total.Amount
+            ? PaymentStatus.Refunded
+            : PaymentStatus.Captured;
         return PaymentResult.Ok(payment.Id);
     }
 }

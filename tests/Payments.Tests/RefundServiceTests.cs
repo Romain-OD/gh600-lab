@@ -66,5 +66,6 @@ public class RefundServiceTests
         Assert.True(first.Success);
         Assert.False(second.Success);
         Assert.Equal(30m, payment.RefundedTotal.Amount);
+        Assert.Equal(PaymentStatus.Captured, payment.Status);
     }
 }
