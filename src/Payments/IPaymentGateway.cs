@@ -3,7 +3,7 @@ namespace Payments;
 /// <summary>
 /// A payment gateway. The name is bad and everybody knows it.
 /// </summary>
-public interface IPayGw
+public interface IPaymentGateway
 {
     string Name { get; }
 

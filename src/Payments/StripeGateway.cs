@@ -1,6 +1,6 @@
 namespace Payments;
 
-public sealed class StripeGateway : IPayGw
+public sealed class StripeGateway : IPaymentGateway
 {
     private readonly Dictionary<string, Money> _authorized = new();
 
