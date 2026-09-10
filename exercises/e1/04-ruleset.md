@@ -4,7 +4,7 @@
 
 | Setting | Value |
 |---|---|
-| Ruleset name | `protect-main` |
+| Ruleset name | `protect-default` |
 | Enforcement status | Active |
 | Target branches | Include default branch |
 | Restrict deletions | on |
@@ -22,7 +22,7 @@ Leave **Bypass list** empty. An agent, or a human, with bypass is the whole cont
 The agent can still plan, write code, push branches, open a pull request and run the checks
 entirely on its own. Nothing about its speed changed.
 
-What it cannot do is land anything on `main` by itself, because the one approval has to come
+What it cannot do is land anything on the default branch by itself, because the one approval has to come
 from somebody who is not the author.
 
 ## The part that is easy to get wrong
