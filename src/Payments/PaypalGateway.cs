@@ -1,7 +1,7 @@
 namespace Payments;
 
 // Same shape as StripeGateway, copied and edited. Somebody meant to come back to this.
-public sealed class PaypalGateway : IPayGw
+public sealed class PaypalGateway : IPaymentGateway
 {
     private readonly Dictionary<string, Money> _authorized = new();
 

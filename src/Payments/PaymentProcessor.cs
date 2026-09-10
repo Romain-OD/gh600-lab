@@ -4,11 +4,11 @@ namespace Payments;
 
 public sealed class PaymentProcessor
 {
-    private readonly IPayGw _gateway;
+    private readonly IPaymentGateway _gateway;
     private readonly RequestValidator _validator;
     private readonly Dictionary<string, Payment> _payments = new();
 
-    public PaymentProcessor(IPayGw gateway)
+    public PaymentProcessor(IPaymentGateway gateway)
     {
         _gateway = gateway;
         _validator = new RequestValidator();

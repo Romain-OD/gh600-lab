@@ -2,9 +2,9 @@ namespace Payments;
 
 public sealed class RefundService
 {
-    private readonly IPayGw _gateway;
+    private readonly IPaymentGateway _gateway;
 
-    public RefundService(IPayGw gateway)
+    public RefundService(IPaymentGateway gateway)
     {
         _gateway = gateway;
     }
