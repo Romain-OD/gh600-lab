@@ -6,8 +6,11 @@ This file carries **what is true for every task**. The issue carries what change
 tasks. Keeping the two apart is most of the skill: rules written into a single issue are
 rules the agent will appear to forget on the next one.
 
-The line that changes the shape of the workflow is the first one under *Working
-agreement* — it is what turns the first artifact you see from a diff into a plan.
+The line that changes the shape of the workflow is the first one under *Working agreement*,
+and it is worth being precise about what it adds. The agent already posts a plan on its own
+— you will have seen one in run one, titled *Initial plan*. What it does not do on its own
+is **stop**. The words that matter are "and wait for approval before editing any file".
+A plan is an artifact; a gate is a pause. They are not the same thing.
 
 ---
 
@@ -21,13 +24,15 @@ intend to run. If approval changes the scope, post a revised plan rather than ed
 
 ## Scope
 - Change only the files named in the issue.
-- Do not rename public types or members.
+- Do not rename public types or members unless the issue names the rename.
 - Do not reformat a file you are not otherwise changing.
 - Do not add a NuGet dependency.
 - Stop and ask before touching anything under `.github/workflows`.
 
 ## Definition of done
-- `dotnet test gh600-lab.slnx` is green.
+- No test that was passing before your change is failing after it.
+- A test that was already failing stays failing unless the issue asks you to fix it. Do not
+  edit a test to make a build green.
 - The pull request description says what changed and why, in two sentences.
 - The pull request is left open for review. Never merge your own work.
 
@@ -38,6 +43,17 @@ intend to run. If approval changes the scope, post a revised plan rather than ed
 ```
 
 ---
+
+## A note on the definition of done
+
+The obvious rule to write there is "`dotnet test` is green". Do not write it. This
+repository ships with one failing test, and in run one that single red test was the most
+machine-checkable goal available — so the agent adopted it as the job, changed how refunds
+are calculated, and edited the test file on its way past. A "make it green" rule is an
+instruction to do exactly that, in writing.
+
+"No test that was passing before your change is failing after it" is the rule that survives
+a repository with known-red tests, which is every real repository.
 
 ## A note on the last line
 

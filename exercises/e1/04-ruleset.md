@@ -12,10 +12,21 @@
 | — Required approvals | 1 |
 | — Dismiss stale approvals on push | on |
 | — Require review from Code Owners | off |
-| Require status checks to pass | on → add `test` |
+| Require status checks to pass | **off** — see below |
 | Block force pushes | on |
 
 Leave **Bypass list** empty. An agent, or a human, with bypass is the whole control undone.
+
+### Why status checks are off here
+
+This repository ships one deliberately failing test, so a required `test` check would block
+every pull request in the exercise — including the one-line documentation fix you need to
+sail through at the end to prove the gate is not a bottleneck.
+
+That is a real trade-off and not a shortcut. This exercise is about **authorisation**: who
+is allowed to make a change irreversible. Automated evidence — what proves a change is
+correct — is domain 4, and it gets its own exercise in episode 4. Turn this on in a real
+repository. Leave it off while the lab's test is red on purpose.
 
 ## What this does and does not do
 
