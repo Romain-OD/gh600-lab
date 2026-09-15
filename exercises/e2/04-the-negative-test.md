@@ -31,7 +31,7 @@ copilot -p "Call the github-mcp-server tool search_code with query 'IPayGw'." --
 ```
 
 ```
-✗ Search code (MCP: github-mcp-server) · IPayGw · query: "IPayGw", fields: [3 items], perPage: 20
+✗ Search code (MCP: github-mcp-server) · IPayGw · query: "IPayGw"
   └ Permission to run this tool was denied due to the following rules:
     `github-mcp-server(search_code)`
 ```
@@ -50,8 +50,10 @@ copilot -p "Call the github-mcp-server tool search_code with query 'IPayGw'." --
 ```
 
 ```
-● Search code (MCP: github-mcp-server) · IPayGw · query: "IPayGw", fields: [3 items], perPage: 10
-  └ {"incomplete_results":false,"items":[{"name":"IPayGw.cs","path":"src/Payments...
+● Search code (MCP: github-mcp-server) · IPayGw · query: "IPayGw"
+  └ Output too large to read at once (23.8 KB). Saved to: /tmp/...
+
+Found 220 results for `IPayGw`; the top match is `src/Payments/IPayGw.cs`...
 ```
 
 **It ran.** No error, no warning, no "unknown rule". You wrote a deny rule, the CLI did not
@@ -94,26 +96,48 @@ copilot -p "Without calling anything, list the exact names of every github-mcp-s
 ```
 
 ```
-github-mcp-server-get_copilot_space
-github-mcp-server-get_file_contents
-github-mcp-server-list_copilot_spaces
-github-mcp-server-search_code
-github-mcp-server-search_users
+github-mcp-server-actions_get          github-mcp-server-list_copilot_spaces
+github-mcp-server-actions_list         github-mcp-server-list_issues
+github-mcp-server-get_commit           github-mcp-server-list_pull_requests
+github-mcp-server-get_copilot_space    github-mcp-server-pull_request_read
+github-mcp-server-get_file_contents    github-mcp-server-search_code
+github-mcp-server-get_job_logs         github-mcp-server-search_issues
+github-mcp-server-issue_read           github-mcp-server-search_pull_requests
+github-mcp-server-list_branches        github-mcp-server-search_repositories
+github-mcp-server-list_commits         github-mcp-server-search_users
 
-Neither `create_issue` nor `list_issues` is available.
+list_issues:  available
+create_issue: not available
 ```
 
-Five tools. You asked for everything and got five, and `create_issue` is not among them —
-even though the GitHub MCP server has one.
+A model is an unreliable narrator of its own toolset, so do not take that list on trust —
+force an actual call and see what comes back:
 
-Why: the CLI offers a **default subset** of the GitHub MCP server's tools unless you start it
-with `--add-github-mcp-tool`, `--add-github-mcp-toolset` or `--enable-all-github-mcp-tools`.
-Your `*` means *all the tools this server is offering me*, and nobody offered `create_issue`.
+```bash
+copilot -p "Call the github-mcp-server create_issue tool to open an issue titled X in Romain-OD/gh600-lab. If that exact tool is not available to you, reply with only NO_CREATE_ISSUE. Do not substitute another tool." --agent release-notes --allow-all-tools
+```
+
+```
+NO_CREATE_ISSUE
+```
+
+Look at what you got. You asked for **everything** and every single tool you received is a
+*read*: list, get, search, read. `list_issues` is there. `create_issue` is not, and neither
+is any other tool that writes.
+
+Why: the CLI offers a **read-only default toolset** from the GitHub MCP server unless you
+start it with `--add-github-mcp-tool`, `--add-github-mcp-toolset` or
+`--enable-all-github-mcp-tools`. Your `*` means *all the tools this server is offering me*,
+and nobody offered `create_issue`.
 
 **Each layer can only narrow the one above it.** That sentence is worth memorising in exactly
 that form, because you have now watched it happen rather than been told it. A wildcard in
 your agent file cannot un-block something the layer above never offered. Permissions flow
 downward and only ever shrink.
+
+Note also what the wildcard *did* do: it widened the agent from the two tools you chose to
+eighteen you did not. It could not reach `create_issue`, but it is still the opposite of
+scoping. `*` is not a scope; it is the absence of one.
 
 Put the two-tool line back when you are done:
 
@@ -143,5 +167,4 @@ what could bypass any of them, the answer is nothing.
 - [ ] `search_users` reports `TOOL_NOT_AVAILABLE`
 - [ ] A denied call prints `✗` and quotes the rule that denied it
 - [ ] You have seen a **mistyped** deny rule let the call through
-- [ ] `github/*` still cannot reach `create_issue`
-- [ ] The fix is committed, so the permission is a diff somebody can review
+- [ ] `github/*` still cannot reach `create_issue`- [ ] The fix is committed, so the permission is a diff somebody can review
