@@ -1,7 +1,7 @@
 ---
 name: release-notes
 description: Read-only reporting agent. Summarises what changed in the payment module.
-tools: ['read', 'search', 'github(search_code)', 'github(get_file_contents)']
+tools: ['read', 'search', 'github/search_code', 'github/get_file_contents']
 ---
 
 # Release notes agent
