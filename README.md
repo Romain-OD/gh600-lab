@@ -37,8 +37,9 @@ files, instead of rewriting fourteen, is what every exercise is steering towards
 |---|---|---|
 | `main` | — | the untouched starting point |
 | `e1-start` | E1 — Stop an Agent Merging Its Own Work | 1 — architecture & SDLC |
+| `e2-start` | E2 — Scope an Agent's Tools, and Prove the Scope | 2 — tool use & environment |
 
-Later episodes add `e2-start` … `e6-start`. Each starts from `main` and carries only what
+Later episodes add `e3-start` … `e6-start`. Each starts from `main` and carries only what
 that exercise needs.
 
 ## Exercises
@@ -49,9 +50,15 @@ your screen matches the video.
 
 - [`exercises/e1`](exercises/e1/README.md) — the vague issue, the contract, the plan gate,
   the ruleset, and the negative test.
+- [`exercises/e2`](exercises/e2/README.md) — an agent whose allow list is silently ignored:
+  reproduce the silence, diagnose a screen with no error on it, scope the tools correctly,
+  and prove the scope holds.
 
 ## Requirements
 
 .NET 10 SDK, a GitHub repository you own with the Copilot coding agent available, and
 permission to edit repository rulesets. **Fork this repo rather than cloning it** — the
 agent needs somewhere it is allowed to open pull requests.
+
+Exercise 2 needs none of that. It runs on Copilot CLI against a plain clone: no fork, no
+containers, no database, no credentials.
